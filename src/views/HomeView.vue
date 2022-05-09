@@ -16,7 +16,7 @@
               <a-typography-title :level="5">语料查询</a-typography-title>
             </a-col>
             <a-col :span="24">
-              <a-typography-text :ellipsis="true">检索以获取语料释义、出处和使用频率。</a-typography-text>
+              <a-typography-text :ellipsis="true" content="检索以获取语料释义、出处和使用频率。"></a-typography-text>
             </a-col>
             <a-col :span="24" style="padding-top: 1rem;">
               <a-button shape="round" type="primary" ghost @click="jumpToCorpus">
@@ -32,7 +32,7 @@
               <a-typography-title :level="5">新词榜单</a-typography-title>
             </a-col>
             <a-col :span="24">
-              <a-typography-text :ellipsis="true">查看泛华语地区历年中文新词榜。</a-typography-text>
+              <a-typography-text :ellipsis="true" content="查看泛华语地区历年中文新词榜。"></a-typography-text>
             </a-col>
             <a-col :span="24" style="padding-top: 1rem;">
               <a-button shape="round" type="primary" ghost @click="jumpToNewWord">
@@ -48,7 +48,7 @@
               <a-typography-title :level="5">报刊介绍</a-typography-title>
             </a-col>
             <a-col :span="24">
-              <a-typography-text :ellipsis="true">查看港澳报刊介绍。</a-typography-text>
+              <a-typography-text :ellipsis="true" content="查看港澳报刊介绍。"></a-typography-text>
             </a-col>
             <a-col :span="24" style="padding-top: 1rem;">
               <a-button shape="round" type="primary" ghost @click="jumpToNewspaper">
@@ -64,7 +64,7 @@
               <a-typography-title :level="5">语料查询</a-typography-title>
             </a-col>
             <a-col :span="24">
-              <a-typography-text :ellipsis="true">检索以获取语料释义、出处和使用频率。</a-typography-text>
+              <a-typography-text :ellipsis="true" content="检索以获取语料释义、出处和使用频率。"></a-typography-text>
             </a-col>
             <a-col :span="24" style="padding-top: 1rem;">
               <a-button shape="round" type="primary" ghost @click="jumpToCantonese">

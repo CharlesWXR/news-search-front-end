@@ -17,13 +17,10 @@ const routes = [
     path: '/corpus',
     name: 'corpus',
     component: () => import('../views/CorpusView.vue'),
-    children: [
-      {
-        path: '/normal',
-        name: 'normalQuery',
-        component: () => import('../components/CorpusQueryResultNormal.vue'),
-      }
-    ]
+  }, {
+    path: '/newword',
+    name: 'newword',
+    component: () => import('../views/NewWordView.vue'),
   }
 ]
 

@@ -1,4 +1,5 @@
 <template>
+    <a-back-top />
     <div class="container">
         <a-row justify="center" style="text-align: center">
             <a-col :span="8">
@@ -6,7 +7,7 @@
             </a-col>
         </a-row>
         <a-row justify="end">
-            <a-col :span="auto">
+            <a-col span="auto">
                 <a-radio-group v-model:value="queryType">
                     <a-radio-button :value="1">一般检索</a-radio-button>
                     <a-radio-button :value="2">高级检索</a-radio-button>
@@ -17,25 +18,41 @@
         </a-row>
         <a-row>
             <a-col :span="16" :offset="4">
-                <a-input-search size="large" v-model:value="value" placeholder="请输入需要查询的内容..." :loading="loading"
-                    enter-button />
+                <a-input-search size="large" v-model:value="text" placeholder="请输入需要查询的内容..." :loading="loading"
+                    enter-button @search="search" :allow-clear="true" :maxlength="30" show-count />
             </a-col>
         </a-row>
-        <router-view></router-view>
+        <corpus-query-result :queryText="queryText"></corpus-query-result>
     </div>
 </template>
 <script>
 import { ref } from "vue";
+import CorpusQueryResult from "@/components/CorpusQueryResult.vue";
 
 export default {
     name: "CorpusView",
+    components: {
+        CorpusQueryResult,
+    },
+    methods: {
+        search() {
+            if (this.queryText !== this.text) {
+                this.queryText = this.text;
+                this.loading = true;
+            }
+        }
+    },
     setup() {
         const queryType = ref(1);
         const loading = ref(false);
+        const text = ref("");
+        const queryText = ref("");
 
         return {
             queryType,
             loading,
+            text,
+            queryText,
         }
     }
 }
