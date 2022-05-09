@@ -3,4 +3,17 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
-createApp(App).use(store).use(router).mount('#app')
+import AntDesign, { message } from 'ant-design-vue'
+import 'ant-design-vue/dist/antd.css'
+
+import axios from 'axios'
+
+const app = createApp(App).use(store);
+
+app.use(router);
+app.use(AntDesign);
+
+axios.defaults.baseURL = 'localhost:8088';
+app.config.globalProperties.$http = axios;
+
+app.use(router).mount('#app');
