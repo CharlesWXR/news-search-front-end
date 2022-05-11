@@ -22,7 +22,7 @@
                     enter-button @search="search" :allow-clear="true" :maxlength="30" show-count />
             </a-col>
         </a-row>
-        <corpus-query-result :queryText="queryText"></corpus-query-result>
+        <corpus-query-result :queryText="queryText" style="margin-top: 3vh"></corpus-query-result>
     </div>
 </template>
 <script>
@@ -58,7 +58,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .container {
     padding-left: 10%;
     padding-right: 10%;

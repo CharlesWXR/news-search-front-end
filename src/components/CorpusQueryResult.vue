@@ -14,7 +14,7 @@
                     <a-table :dataSource="dataSource" :columns="columns" :pagination="false" bordered>
                         <template #bodyCell="{ column, record }">
                             <template v-if="column.key === 'reference'">
-                                <a :href="record.href">{{ record.reference }}</a>
+                                <a @click="jumpTo(record.href)">{{ record.reference }}</a>
                             </template>
                         </template>
                     </a-table>
@@ -116,7 +116,9 @@ export default {
     props: ["queryText"],
     emits: ["finished"],
     methods: {
-
+        jumpTo(newAddr) {
+            window.open(newAddr, '_blank');
+        }
     },
     setup(props, context) {
         const loading = ref(false);
