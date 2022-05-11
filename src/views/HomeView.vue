@@ -81,8 +81,9 @@
 
 <script>
 import { RightCircleOutlined } from '@ant-design/icons-vue';
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent({
   name: 'HomeView',
   methods: {
     jumpToCorpus() {
@@ -106,7 +107,7 @@ export default {
   components: {
     RightCircleOutlined,
   }
-}
+})
 </script>
 
 <style scoped lang="scss">

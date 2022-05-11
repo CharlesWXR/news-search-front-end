@@ -21,6 +21,10 @@ const routes = [
     path: '/newword',
     name: 'newword',
     component: () => import('../views/NewWordView.vue'),
+  }, {
+    path: '/newspaper',
+    name: 'newspaper',
+    component: () => import('../views/NewspaperView.vue'),
   }
 ]
 
