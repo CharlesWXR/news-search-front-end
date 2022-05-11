@@ -18,12 +18,12 @@
           <router-link to="/cantonese" tag="div">词说粤语</router-link>
         </a-menu-item>
         <a-menu-item :key="6">
-          <router-link to="/feedback" tag="div">帮助</router-link>
+          <router-link to="/help" tag="div">帮助</router-link>
         </a-menu-item>
       </a-menu>
     </div>
     <a-layout-content class="content">
-      <router-view @nevChanged="nevChanged"></router-view>
+      <router-view @navChanged="navChanged"></router-view>
     </a-layout-content>
     <a-layout-footer>
       <div class="footer">
@@ -41,7 +41,7 @@ export default {
     HomeView
   },
   methods: {
-    nevChanged(newVal) {
+    navChanged(newVal) {
       console.log("invoked");
       this.selectedKeys[0] = newVal;
     }

@@ -22,18 +22,19 @@
                     enter-button @search="search" :allow-clear="true" :maxlength="30" show-count />
             </a-col>
         </a-row>
-        <corpus-query-result :queryText="queryText" style="margin-top: 3vh"></corpus-query-result>
+        <corpus-query-result :queryText="queryText" style="margin-top: 5vh"></corpus-query-result>
     </div>
 </template>
 <script>
-import { ref } from "vue";
+import { ref, defineComponent } from "vue";
 import CorpusQueryResult from "@/components/CorpusQueryResult.vue";
 
-export default {
+export default defineComponent({
     name: "CorpusView",
     components: {
         CorpusQueryResult,
     },
+    emits: ['navChanged'],
     methods: {
         search() {
             if (this.queryText !== this.text) {
@@ -42,7 +43,9 @@ export default {
             }
         }
     },
-    setup() {
+    setup(_, context) {
+        context.emit('navChanged', 2);
+
         const queryType = ref(1);
         const loading = ref(false);
         const text = ref("");
@@ -55,7 +58,7 @@ export default {
             queryText,
         }
     }
-}
+})
 </script>
 
 <style scoped>

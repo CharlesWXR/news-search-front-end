@@ -77,11 +77,14 @@
     </div>
 </template>
 <script>
-import { ref, reactive } from 'vue';
+import { ref, reactive, defineComponent } from 'vue';
 
-export default {
+export default defineComponent({
     name: 'NewWordView',
-    setup() {
+    emits: ['navChanged'],
+    setup(_, context) {
+        context.emit('navChanged', 3);
+
         const yearSelected = ref([2020, 2021]);
         let options = [{
             value: 2020,
@@ -140,7 +143,7 @@ export default {
             content,
         }
     }
-}
+})
 </script>
 <style scoped>
 .container {

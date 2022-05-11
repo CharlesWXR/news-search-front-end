@@ -6,10 +6,6 @@ const routes = [
     name: 'home',
     component: () => import('../views/HomeView.vue'),
   }, {
-    path: '/feedback',
-    name: 'feedback',
-    component: () => import('../views/FeedBackView.vue'),
-  }, {
     path: '/help',
     name: 'help',
     component: () => import('../views/HelpView.vue'),
@@ -25,6 +21,10 @@ const routes = [
     path: '/newspaper',
     name: 'newspaper',
     component: () => import('../views/NewspaperView.vue'),
+  }, {
+    path: '/cantonese',
+    name: 'cantonese',
+    component: () => import('../views/CantoneseView.vue'),
   }
 ]
 

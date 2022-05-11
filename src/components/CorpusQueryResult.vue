@@ -1,11 +1,20 @@
 <template>
     <div>
         <a-skeleton active :loading="loading">
-            <a-row>
+            <a-row :gutter="[32, 16]" justify="center">
                 <a-col :span="16">
-                    <a-typography>{{ description }}</a-typography>
+                    <a-row>
+                        <a-col :span="24">
+                            <a-typography-title :level="4">释义</a-typography-title>
+                        </a-col>
+                    </a-row>
+                    <a-row>
+                        <a-col :span="24">
+                            <a-typography>{{ description }}</a-typography>
+                        </a-col>
+                    </a-row>
                 </a-col>
-                <a-col :span="8">
+                <a-col :span="6">
                     <a-image :src="imgSrc" />
                 </a-col>
             </a-row>
@@ -25,14 +34,14 @@
                     <a-typography-title :level="3" style="color: #337ecc;">两地报刊历史使用率</a-typography-title>
                 </a-col>
                 <a-col :span="24">
-                    <apexchart type="line" :options="chartOptions" :series="series" height="300"></apexchart>
+                    <apexchart type="line" :options="chartOptions" :series="series" height="500"></apexchart>
                 </a-col>
             </a-row>
         </a-skeleton>
     </div>
 </template>
 <script>
-import { ref, watch } from "vue";
+import { ref, watch, reactive } from "vue";
 import VueApexCharts from "vue3-apexcharts";
 
 function generateDayWiseTimeSeries(baseval, count, yrange) {
@@ -122,8 +131,10 @@ export default {
     },
     setup(props, context) {
         const loading = ref(false);
-        const description = ref("");
-        const imgSrc = ref("");
+        const description = reactive({
+            description: "港珠澳大桥的前身是原规划中的伶仃洋大桥。20世纪80年代初，香港、澳门与中国内地之间的陆地运输通道虽不断完善，但香港与珠江三角洲西岸地区的交通联系因伶仃洋的阻隔而受到限制……",
+            imgSrc: "/image/Corpus/test1.jpg"
+        })
 
         watch(
             props,
@@ -134,8 +145,7 @@ export default {
 
         return {
             loading,
-            description,
-            imgSrc,
+            ...description,
 
             columns,
             dataSource,

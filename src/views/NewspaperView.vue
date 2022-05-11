@@ -17,9 +17,13 @@ import BaiduMap from "@/components/BaiduMap.vue";
 import { defineComponent } from "vue";
 
 export default defineComponent({
-    name: "NewspaperView",
+    name: 'NewspaperView',
+    emits: ['navChanged'],
     components: {
         BaiduMap,
+    },
+    setup(_, context) {
+        context.emit('navChanged', 4);
     }
 })
 </script>

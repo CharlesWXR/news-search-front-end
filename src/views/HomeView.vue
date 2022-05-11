@@ -87,25 +87,28 @@ export default defineComponent({
   name: 'HomeView',
   methods: {
     jumpToCorpus() {
-      this.$emit("nevChanged", 2);
+      this.$emit("navChanged", 2);
       this.$router.push("/corpus");
     },
     jumpToNewWord() {
-      this.$emit("nevChanged", 3);
+      this.$emit("navChanged", 3);
       this.$router.push("/newword");
     },
     jumpToNewspaper() {
-      this.$emit("nevChanged", 4);
+      this.$emit("navChanged", 4);
       this.$router.push("/newspaper");
     },
     jumpToCantonese() {
-      this.$emit("nevChanged", 5);
+      this.$emit("navChanged", 5);
       this.$router.push("/cantonese");
     },
   },
-  emits: ["nevChanged"],
+  emits: ["navChanged"],
   components: {
     RightCircleOutlined,
+  },
+  setup(_, context) {
+    context.emit('navChanged', 1);
   }
 })
 </script>
