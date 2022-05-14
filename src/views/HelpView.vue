@@ -1,5 +1,5 @@
 <template>
-    <a-result title="这种网页还不会用，我不好说。">
+    <a-result title="这种网页还能不会用?">
         <template #icon>
             <smile-twoTone />
         </template>

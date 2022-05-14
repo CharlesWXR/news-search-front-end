@@ -1,26 +1,25 @@
 <template>
+    <main-title :imgSrc="require('@/assets/图5.jpg')" title="词 说 粤 语"></main-title>
     <div class="container">
-        <a-row :gutter="[8, 24]">
-            <a-col :span="6" v-for="(element, index) in elements.data" :key="index">
-                <a-card hoverable style="width: 100%;">
-                    <template #cover>
-                        <a-image :src="element.imgSrc" />
-                    </template>
-                    <a href="javascript: void(0);" @click="jumpTo(element.href)">
-                        <a-card-meta :title="element.title">
-                            <template #description>{{ element.brief }}</template>
-                        </a-card-meta>
-                    </a>
-                </a-card>
-            </a-col>
-        </a-row>
+        <a-list item-layout="horizontal" :data-source="elements.data">
+            <template #renderItem="{ item }">
+                <a-list-item>
+                    <a @click="jumpTo(item.href)">{{ item.title }}</a>
+                </a-list-item>
+            </template>
+        </a-list>
     </div>
 </template>
 <script>
-import { reactive, defineComponent } from "vue";
+import { reactive, defineComponent, getCurrentInstance } from "vue";
+import MainTitle from "@/components/MainTitle.vue";
+import { message } from 'ant-design-vue';
 
 export default defineComponent({
     name: 'CantoneseView',
+    components: {
+        MainTitle,
+    },
     emits: ['navChanged'],
     methods: {
         jumpTo(newAddr) {
@@ -29,45 +28,25 @@ export default defineComponent({
     },
     setup(_, context) {
         context.emit('navChanged', 5);
+        const { appContext } = getCurrentInstance();
+        const $http = appContext.config.globalProperties.$http;
 
         const elements = reactive({
-            data: [{
-                title: "111",
-                brief: "222",
-                imgSrc: 'image/Cantonese/test1.jpg',
-                href: "http://www.baidu.com/"
-            }, {
-                title: "111",
-                brief: "333",
-                imgSrc: 'image/Cantonese/test1.jpg',
-                href: "http://www.baidu.com/"
-            }, {
-                title: "111",
-                brief: "444",
-                imgSrc: 'image/Cantonese/test1.jpg',
-                href: "http://www.baidu.com/"
-            }, {
-                title: "111",
-                brief: "444",
-                imgSrc: 'image/Cantonese/test1.jpg',
-                href: "http://www.baidu.com/"
-            }, {
-                title: "111",
-                brief: "444",
-                imgSrc: 'image/Cantonese/test1.jpg',
-                href: "http://www.baidu.com/"
-            }, {
-                title: "111",
-                brief: "444",
-                imgSrc: 'image/Cantonese/test1.jpg',
-                href: "http://www.baidu.com/"
-            }, {
-                title: "111",
-                brief: "444",
-                imgSrc: 'image/Cantonese/test1.jpg',
-                href: "http://www.baidu.com/"
-            }]
+            data: []
         })
+
+        $http.get("/cantonese/").then(
+            response => {
+                let res = response.data;
+                if (res.code === 200) {
+                    elements.data = res.result;
+                }
+                else {
+                    message.error('Unexpected error happend:' + response.message);
+                }
+            }).catch(error => {
+                message.error('Unexpected error happend:' + error);
+            })
 
         return {
             elements,
