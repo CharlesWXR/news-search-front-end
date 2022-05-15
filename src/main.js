@@ -13,7 +13,7 @@ const app = createApp(App).use(store);
 app.use(router);
 app.use(AntDesign);
 
-axios.defaults.baseURL = 'http://localhost:8088/api/';
+axios.defaults.baseURL = 'http://172.25.120.153:8088/api/';
 app.config.globalProperties.$http = axios;
 
 app.use(router).mount('#app');

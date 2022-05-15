@@ -154,53 +154,59 @@ export default defineComponent({
 
         const imgBase = "image/Corpus/";
 
+        const query = (target) => {
+            $http.get("corpus/" + target).then(
+                response => {
+                    let res = response.data;
+                    loading.value = false;
+                    context.emit("finished", true);
+                    dataSource.value = [];
+                    description.description = "";
+                    description.imgSrc = "";
+
+                    if (res.code === 200) {
+                        let t = res.result;
+                        if (t.length === 0) {
+                            empty.value = true;
+                            return;
+                        }
+
+                        empty.value = false;
+                        let re = new RegExp("(" + t[0].corpus.word + ")");
+                        for (let index = 0, len = t.length; index < len; index++) {
+                            let c = t[index].corpus;
+                            if (c.imgsrc !== null)
+                                description.imgSrc = imgBase + c.imgsrc;
+
+                            if (c.description !== null)
+                                description.description = c.description;
+
+                            dataSource.value.push({
+                                index: index,
+                                sample: (c.sample).replace(re, `<strong>$1</strong>`),
+                                fulltext: (t[index].fulltext).replace(re, `<strong>$1</strong>`),
+                            });
+                        }
+                    }
+                    else {
+                        message.error('Unexpected error happend:' + response.message);
+                    }
+                }
+            ).catch(error => {
+                context.emit("finished", true);
+                loading.value = false;
+                message.error('Unexpected error happend:' + error);
+            })
+        }
+
+        if (props.queryText !== null && props.queryText !== "")
+            query(props.queryText);
+
         watch(
             props,
             (newVal) => {
                 loading.value = true;
-
-                $http.get("corpus/" + newVal.queryText).then(
-                    response => {
-                        let res = response.data;
-                        loading.value = false;
-                        context.emit("finished", true);
-                        dataSource.value = [];
-                        description.description = "";
-                        description.imgSrc = "";
-
-                        if (res.code === 200) {
-                            let t = res.result;
-                            if (t.length === 0) {
-                                empty.value = true;
-                                return;
-                            }
-
-                            empty.value = false;
-                            let re = new RegExp("(" + t[0].corpus.word + ")");
-                            for (let index = 0, len = t.length; index < len; index++) {
-                                let c = t[index].corpus;
-                                if (c.imgsrc !== null)
-                                    description.imgSrc = imgBase + c.imgsrc;
-
-                                if (c.description !== null)
-                                    description.description = c.description;
-
-                                dataSource.value.push({
-                                    index: index,
-                                    sample: (c.sample).replace(re, `<strong>$1</strong>`),
-                                    fulltext: (t[index].fulltext).replace(re, `<strong>$1</strong>`),
-                                });
-                            }
-                        }
-                        else {
-                            message.error('Unexpected error happend:' + response.message);
-                        }
-                    }
-                ).catch(error => {
-                    context.emit("finished", true);
-                    loading.value = false;
-                    message.error('Unexpected error happend:' + error);
-                })
+                query(newVal.queryText);
             }
         )
 

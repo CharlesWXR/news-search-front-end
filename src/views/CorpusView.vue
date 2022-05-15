@@ -2,11 +2,7 @@
     <a-back-top />
     <main-title :imgSrc="require('@/assets/图2.png')" title="语 料 查 询" :background-pos="[0, -40]"></main-title>
     <div class="container">
-        <!--a-row justify="center" style="text-align: center">
-            <a-col :span="8">
-                <a-typography-title style="color: #337ecc;"></a-typography-title>
-            </a-col>
-        </a-row-->
+
         <a-row justify="end">
             <a-col span="auto">
                 <a-radio-group v-model:value="queryType">
@@ -24,20 +20,34 @@
             </a-col>
         </a-row>
         <div v-show="show">
-            <corpus-query-result :queryText="queryText" style="margin-top: 5vh" @finished="finished">
-            </corpus-query-result>
+            <div v-if="queryType === 1">
+                <corpus-query-result :queryText="queryText" style="margin-top: 5vh" @finished="finished">
+                </corpus-query-result>
+            </div>
+            <div v-else-if="queryType === 2">
+                <corpus-blur-query-result :queryText="queryText" @finished="finished">
+                </corpus-blur-query-result>
+            </div>
+            <div v-else-if="queryType === 3">
+                <corpus-passage-query-result :queryText="queryText" @finished="finished">
+                </corpus-passage-query-result>
+            </div>
         </div>
     </div>
 </template>
 <script>
 import { ref, defineComponent } from "vue";
 import CorpusQueryResult from "@/components/CorpusQueryResult.vue";
+import CorpusBlurQueryResult from "@/components/CorpusBlurQueryResult.vue";
+import CorpusPassageQueryResult from "@/components/CorpusPassageQueryResult.vue";
 import MainTitle from "@/components/MainTitle.vue";
 
 export default defineComponent({
     name: "CorpusView",
     components: {
         CorpusQueryResult,
+        CorpusBlurQueryResult,
+        CorpusPassageQueryResult,
         MainTitle,
     },
     emits: ['navChanged'],
